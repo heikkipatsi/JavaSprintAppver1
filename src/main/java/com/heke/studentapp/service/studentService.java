@@ -1,5 +1,7 @@
 package com.heke.studentapp.service;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +15,25 @@ import com.heke.studentapp.students.student;
 @Service
 public class studentService {
 
-
     @Autowired
     StudentFileService myFileService;
-    
+
+    public void savePersistentData() {
+        try {
+            myFileService.writeStudentsToFile(students);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readPersistentData() {
+        try {
+            myFileService.readStudentsFromFile(students);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private List<student> students = new ArrayList<>();
     private List<course> courses = new ArrayList<>();
 
@@ -38,15 +55,21 @@ public class studentService {
         return null;
     }
 
-    public void addCourse(student coursename) {
-        students.add(coursename);
+    public void addCourse(course course) {
+        courses.add(course);
     }
 
     public List<course> getAllCourses() {
         return courses;
     }
 
-    public void addCourse(course course) {
-    }
+    public course getByCId(long courseid) {
+        for (course course : courses) {
+            if (course.getCourseid() == courseid) {
+                return course;
+            }
+        }
 
+        return null;
+    }
 }

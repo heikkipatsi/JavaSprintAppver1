@@ -1,24 +1,21 @@
 package com.heke.studentapp.courses;
 
-
-
-
 public class course {
     private String coursename;
     private String description;
-    private static long courseidCounter = 0;
     private long courseid;
+    private static long courseidCounter = 0;
+
+    public course(){
+        this("");
+    }
+    public course(String coursename) {
+        this.courseid = courseidCounter++;
+        this.coursename = coursename;
+    }
 
     public long getCourseid() {
         return this.courseid;
-    }
-
-    public void setCourseid(long courseid) {
-        this.courseid = courseid;
-    }
-    
-    public course() {
-        this.courseid = courseidCounter++;
     }
 
     public String getDescription() {
@@ -29,9 +26,12 @@ public class course {
         this.description = description;
     }
 
-
     public String getCoursename() {
         return this.coursename;
+    }
+
+    public void setCoursename(String coursename){
+        this.coursename = coursename;
     }
 
 }
